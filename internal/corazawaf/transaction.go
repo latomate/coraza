@@ -308,6 +308,10 @@ func (tx *Transaction) Collection(idx variables.RuleVariable) collection.Collect
 func (tx *Transaction) Interrupt(interruption *types.Interruption) {
 	if tx.RuleEngine == types.RuleEngineOn {
 		tx.interruption = interruption
+	} else if tx.RuleEngine == types.RuleEngineDetectionOnly {
+		// Store the interruption but mark it as non-blocking
+		interruption.Action = "allow"
+		tx.interruption = interruption
 	}
 }
 
