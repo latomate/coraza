@@ -1,4 +1,4 @@
-module github.com/corazawaf/coraza/v3
+module github.com/latomate/coraza/v3
 
 go 1.23.0
 
@@ -46,3 +46,5 @@ require (
 )
 
 retract v3.2.2
+
+replace github.com/corazawaf/coraza/v3 => ./
