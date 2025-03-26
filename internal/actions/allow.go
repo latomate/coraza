@@ -5,10 +5,12 @@ package actions
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/corazawaf/coraza/v3/experimental/plugins/plugintypes"
 	"github.com/corazawaf/coraza/v3/internal/corazatypes"
 	"github.com/corazawaf/coraza/v3/internal/corazawaf"
+	"github.com/corazawaf/coraza/v3/types"
 )
 
 // Action Group: Disruptive
@@ -57,6 +59,21 @@ func (a *allowFn) Init(_ plugintypes.RuleMetadata, data string) error {
 func (a *allowFn) Evaluate(r plugintypes.RuleMetadata, txS plugintypes.TransactionState) {
 	tx := txS.(*corazawaf.Transaction)
 	tx.AllowType = a.allow
+
+	rid := r.ID()
+	if rid == noID {
+		rid = r.ParentID()
+	}
+	status := r.Status()
+	// deny action defaults to status 403
+	if status == noStatus {
+		status = http.StatusForbidden
+	}
+	tx.Interrupt(&types.Interruption{
+		Status: status,
+		RuleID: rid,
+		Action: "allow",
+	})
 }
 
 func (a *allowFn) Type() plugintypes.ActionType {

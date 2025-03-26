@@ -312,6 +312,7 @@ func (tx *Transaction) Interrupt(interruption *types.Interruption) {
 		// Store the interruption but mark it as non-blocking
 		interruption.Action = "allow"
 		tx.interruption = interruption
+		tx.debugLogger.Warn().Msg("Adding interruption to transaction with RuleEngineDetectionOnly")
 	}
 }
 
