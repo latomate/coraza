@@ -380,6 +380,8 @@ func (r *Rule) doEvaluate(logger debuglog.Logger, phase types.RulePhase, tx *Tra
 				// The parser enforces that the disruptive action is just one per rule (if more than one, only the last one is kept)
 				logger.Debug().Str("action", a.Name).Msg("Executing disruptive action for rule")
 				a.Function.Evaluate(r, tx)
+			} else {
+				logger.Debug().Str("action", a.Name).Int("FunctionType", int(a.Function.Type())).Msg("Skipping disruptive action for rule")
 			}
 		}
 		if r.ID_ != noID {
