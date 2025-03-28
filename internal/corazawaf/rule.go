@@ -383,6 +383,7 @@ func (r *Rule) doEvaluate(logger debuglog.Logger, phase types.RulePhase, tx *Tra
 			} else {
 				logger.Debug().Str("action", a.Name).Int("FunctionType", int(a.Function.Type())).Msg("Skipping disruptive action for rule")
 			}
+			logger.Debug().Str("action", a.Name).Msg("Coucou")
 		}
 		if r.ID_ != noID {
 			// we avoid matching chains and secmarkers
