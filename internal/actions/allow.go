@@ -77,7 +77,7 @@ func (a *allowFn) Evaluate(r plugintypes.RuleMetadata, txS plugintypes.Transacti
 }
 
 func (a *allowFn) Type() plugintypes.ActionType {
-	return plugintypes.ActionTypeNondisruptive
+	return plugintypes.ActionTypeDisruptive
 }
 
 func allow() plugintypes.Action {
