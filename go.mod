@@ -46,3 +46,5 @@ require (
 )
 
 retract v3.2.2
+
+replace github.com/corazawaf/coraza/v3 => ./
